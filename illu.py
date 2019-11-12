@@ -2,7 +2,9 @@
 #!C:\Python37\python.exe
 
 import requests
-from colorama import Fore, Back, Style
+import time
+start = time.time()
+from colorama import Fore, Style
 from src.asu import kitab
 
 print(Fore.BLUE)
@@ -20,7 +22,7 @@ siapa = input("illustrator/doujin artist name: ")
 print("Find /",Style.BRIGHT+Fore.YELLOW+siapa+Style.RESET_ALL+"'s nickname\n")
 def main(siapa):
     
-    
+
     for i in kitab:
         r = requests.get(i+"{}".format(siapa))
         if r.status_code == 200:
@@ -29,3 +31,7 @@ def main(siapa):
             print("[x] "+i+"{} >> ".format(siapa) + Fore.RED + "false, or different name?"+ Style.RESET_ALL)
 
 main(siapa)
+end = time.time()
+hours, rem = divmod(end-start, 3600)
+minutes, seconds = divmod(rem, 60)
+print("{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds))
